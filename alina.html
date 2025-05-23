@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Алина - Знакомства | Онлайн сейчас</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF3E6C;
+      --primary-dark: #E8355F;
+      --secondary: #6C5CE7;
+      --dark: #2D3436;
+      --light: #F5F6FA;
+      --gray: #636E72;
+      --success: #00B894;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 414px;
+      margin: 0 auto;
+      background: white;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    }
+    
+    .profile-header {
+      position: relative;
+      height: 70vh;
+      overflow: hidden;
+    }
+    
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .profile-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 30px 25px;
+      color: white;
+    }
+    
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .profile-age {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 15px;
+    }
+    
+    .online-badge {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--success);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .online-badge::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: white;
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    
+    .action-bar {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+    }
+    
+    .back-btn, .like-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.2);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover, .like-btn:hover {
+      background-color: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+    
+    .profile-content {
+      padding: 25px;
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--dark);
+      position: relative;
+      padding-left: 15px;
+    }
+    
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      height: 18px;
+      width: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .bio-text {
+      color: var(--gray);
+      margin-bottom: 25px;
+      font-size: 15px;
+    }
+    
+    .interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .interest-tag {
+      background-color: rgba(108, 92, 231, 0.1);
+      color: var(--secondary);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .action-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 10px 20px rgba(255, 62, 108, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px rgba(255, 62, 108, 0.4);
+    }
+    
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+    }
+    
+    .modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 350px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal.active .modal-content {
+      transform: translateY(0);
+    }
+    
+    .modal-header {
+      padding: 20px;
+      text-align: center;
+      background-color: var(--light);
+    }
+    
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+    
+    .modal-text {
+      color: var(--gray);
+      font-size: 15px;
+    }
+    
+    .modal-body {
+      padding: 25px;
+    }
+    
+    .modal-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .modal-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.2);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border: none;
+      cursor: pointer;
+      z-index: 101;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile-header">
+      <img src="https://i.ibb.co/Lz5SSFdr/IMG-5643.jpg" alt="Алина" class="profile-image">
+      <div class="profile-overlay">
+        <h1 class="profile-name">Алина</h1>
+        <div class="profile-age">24 года</div>
+        <div class="online-badge">Онлайн сейчас</div>
+      </div>
+      
+      <div class="action-bar">
+        <button class="back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+        <button class="like-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="profile-content">
+      <h2 class="section-title">О себе</h2>
+      <p class="bio-text">
+        Привет! Я Алина, ищу интересного собеседника и возможно не только. Люблю путешествия, хорошие книги и долгие прогулки. Работаю в сфере маркетинга. Давай познакомимся ближе?
+      </p>
+      
+      <h2 class="section-title">Интересы</h2>
+      <div class="interests">
+        <span class="interest-tag">Путешествия</span>
+        <span class="interest-tag">Фотография</span>
+        <span class="interest-tag">Искусство</span>
+        <span class="interest-tag">Кофе</span>
+        <span class="interest-tag">Фитнес</span>
+      </div>
+      
+      <button id="messageBtn" class="action-btn">Написать сообщение</button>
+    </div>
+  </div>
+  
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Ой, кажется вы не зарегистрированы</h3>
+        <p class="modal-text">Чтобы написать Алине, нужно создать профиль</p>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 20px; color: var(--gray); font-size: 15px;">
+          Регистрация займет меньше минуты. После этого вы сможете общаться с Алиной и другими участниками нашего клуба знакомств.
+        </p>
+        <a href="https://ginks.me/78e4f605/" class="modal-btn">Зарегистрироваться сейчас</a>
+      </div>
+    </div>
+    <button class="close-btn" id="closeModal">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  
+  <script>
+    // Модальное окно
+    const messageBtn = document.getElementById('messageBtn');
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    
+    messageBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+    
+    // Автоматический редирект через 8 секунд
+    setTimeout(() => {
+      window.location.href = 'https://ginks.me/78e4f605/';
+    }, 8000);
+    
+    // Анимация кнопки "Написать сообщение" для привлечения внимания
+    setInterval(() => {
+      messageBtn.style.transform = 'scale(1.02)';
+      setTimeout(() => {
+        messageBtn.style.transform = 'scale(1)';
+      }, 300);
+    }, 5000);
+  </script>
+</body>
+</html>
