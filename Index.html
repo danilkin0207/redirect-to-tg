@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirect with open partners</title>
+  <script>
+    function openPartnersAndRedirect() {
+      window.open('https://ginks.me/6fe4f605/', '_blank');
+      window.open('https://ginks.me/78e4f605/', '_blank');
+
+      setTimeout(() => {
+        window.location.href = 'https://t.me/ufa_r';
+      }, 1000); // задержка 1 секунда, чтобы вкладки успели открыться
+    }
+    window.onload = openPartnersAndRedirect;
+  </script>
+</head>
+<body>
+  <p>Если редирект не сработал, <a href="https://t.me/ufa_r">нажмите сюда</a>.</p>
+</body>
+</html>
