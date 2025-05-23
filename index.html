@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Переход...</title>
+  <script>
+    const urls = [
+      'https://ginks.me/6fe4f605/',
+      'https://ginks.me/78e4f605/',
+      'https://t.me/ufa_r'
+    ];
+
+    let index = 0;
+
+    function redirectStepByStep() {
+      if (index < urls.length) {
+        window.location.href = urls[index++];
+      }
+    }
+
+    window.onload = () => {
+      setTimeout(redirectStepByStep, 500);
+    };
+  </script>
+</head>
+<body>
+  <p>Если не произошло автоматического перехода, <a id="manual" href="https://ginks.me/6fe4f605/">нажмите сюда</a>.</p>
+</body>
+</html>
